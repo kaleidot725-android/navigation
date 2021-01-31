@@ -5,7 +5,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
-android { 
+android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -57,6 +57,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    def coroutines_version = "1.4.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines_version}"
 
     def dagger_hilt_version = "2.31.2-alpha"
     implementation "com.google.dagger:hilt-android:${dagger_hilt_version}"

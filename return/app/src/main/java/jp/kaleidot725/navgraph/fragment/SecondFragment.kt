@@ -5,15 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import jp.kaleidot725.navgraph.databinding.FragmentSecondBinding
 import jp.kaleidot725.navgraph.model.Counter
-import jp.kaleidot725.navgraph.viewmodel.CountViewModel
+import jp.kaleidot725.navgraph.viewmodel.CounterViewModel
 
+@AndroidEntryPoint
 class SecondFragment  : Fragment() {
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
-    private val viewModel = CountViewModel(Counter)
+
+    private val viewModel: CounterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

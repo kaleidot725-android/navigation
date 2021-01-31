@@ -1,14 +1,17 @@
 package jp.kaleidot725.navgraph.model
 
-object Counter {
-    var count: Int = 0
-        private set
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+
+class Counter {
+    private val _count :MutableStateFlow<Int> = MutableStateFlow(0)
+    val count: StateFlow<Int> = _count
 
     fun increment() {
-        count++
+        _count.value = _count.value + 1
     }
 
     fun decrement() {
-        count--
+        _count.value = _count.value - 1
     }
 }
