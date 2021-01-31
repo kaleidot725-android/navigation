@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import jp.kaleidot725.navgraph.R
@@ -55,7 +58,46 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_firstFragment_to_thirdFragment)
         }
 
-        viewModel.countLiveData.observe(findNavController().currentBackStackEntry!!) {
+
+        val backstackEntry = findNavController().currentBackStackEntry ?: return
+        backstackEntry.lifecycle.addObserver(object: LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+            fun onCreate() {
+                Log.v("BackStackEntry", "onCreate")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_START)
+            fun onStart() {
+                Log.v("BackStackEntry", "onStart")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            fun onResume() {
+                Log.v("BackStackEntry", "onResume")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+            fun onPause() {
+                Log.v("BackStackEntry", "onPause")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+            fun onStop() {
+                Log.v("BackStackEntry", "onStop")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+            fun onDestroy() {
+                Log.v("BackStackEntry", "onDestory")
+            }
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+            fun onAny() {
+                Log.v("BackStackEntry", "onAny")
+            }
+        })
+
+        viewModel.countLiveData.observe(backstackEntry) {
             Log.v("FirstFragment", "POPUP: ${it.toString()}")
             binding.countText.text = "POPUP:" + it.toString()
         }
